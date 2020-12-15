@@ -3,3 +3,4 @@ htdfsdk.egg-info
 build
 .idea
 dist
+docs/build

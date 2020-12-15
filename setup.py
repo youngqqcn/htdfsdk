@@ -11,7 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='htdf sdk',
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages("htdfsdk"),
     author='youngqqcn',
     author_email='youngqqcn@163.com',
     url='https://github.com/youngqqcn/htdfsdk',

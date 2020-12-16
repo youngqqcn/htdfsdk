@@ -6,12 +6,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='htdfsdk',
-    version='0.0.8',
+    version='0.0.9',
     description='htdf sdk',
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='htdf sdk',
-    packages=setuptools.find_packages("htdfsdk"),
+    packages=setuptools.find_packages(exclude=["tests"]),
     author='youngqqcn',
     author_email='youngqqcn@163.com',
     url='https://github.com/youngqqcn/htdfsdk',

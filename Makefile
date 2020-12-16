@@ -5,6 +5,7 @@ help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "test - run tests quickly with the default Python"
 	@echo "upload - upload to pypi"
+	@echo "bumpversion 0.0.x  - update version"
 
 clean: clean-build clean-pyc
 
@@ -30,6 +31,6 @@ test:
 
 
 bumpversion:
-	@echo "version is:" $(version)
+# 	@echo "version is:" $(version)
 	@bumpversion --new-version $(version) part
 

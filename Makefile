@@ -23,7 +23,7 @@ clean-pyc:
 dist: clean
 	-python3 setup.py sdist bdist_wheel
 
-upload:
+upload: dist
 	twine upload dist/*  --verbose
 
 test:

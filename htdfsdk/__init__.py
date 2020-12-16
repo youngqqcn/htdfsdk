@@ -1,6 +1,24 @@
-name = "htdfsdk"
+import sys
 
-from .htdfsdk import HtdfTxBuilder, HtdfRPC, Address, HtdfPrivateKey
-from .utils import *
+if sys.version_info < (3, 6):
+    raise EnvironmentError(
+        "Python 3.6 or above is required. ")
 
-__all__ = ['utils', HtdfRPC, HtdfTxBuilder, Address, HtdfPrivateKey]
+
+
+from htdfsdk.htdfsdk import (
+    HtdfTxBuilder,
+    HtdfRPC,
+    Address,
+    HtdfPrivateKey
+)
+
+from htdfsdk.utils import *
+
+__all__ = [
+    'utils',
+    "HtdfRPC",
+    "HtdfTxBuilder",
+    "Address",
+    "HtdfPrivateKey",
+]

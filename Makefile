@@ -27,3 +27,9 @@ upload:
 
 test:
 	pytest tests
+
+
+bumpversion:
+	@echo "version is:" $(version)
+	@bumpversion --new-version $(version) part
+

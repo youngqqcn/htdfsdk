@@ -32,6 +32,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.8',
     ],
     python_requires='>=3.6',
-    install_requires=['ecdsa', 'coincurve', 'bech32', 'func_timeout', 'bumpversion'],
+    install_requires=['ecdsa', 'coincurve', 'bech32', 'func_timeout', 'bumpversion', 'pytest'],
 
 )

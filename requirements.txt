@@ -3,3 +3,4 @@ coincurve
 bech32
 func_timeout
 bumpversion
+pytest

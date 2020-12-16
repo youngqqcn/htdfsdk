@@ -5,3 +5,7 @@ build_wheel:
 
 upload:
 	twine upload dist/*  --verbose
+
+
+test:
+	-python3 -m unittest ./tests/htdfsdk_test.MyTestCase  ./tests

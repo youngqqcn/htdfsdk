@@ -4,3 +4,9 @@ bech32
 func_timeout
 bumpversion
 pytest
+
+
+eth_abi
+eth_typing
+eth_utils
+hexbytes

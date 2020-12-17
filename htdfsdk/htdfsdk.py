@@ -340,6 +340,18 @@ class HtdfRPC(object):
 
         return txhash
 
+    def get_upgrade_info(self) -> Dict:
+        """
+        get upgrade info
+        :return:
+        """
+        url = 'http://{0}/upgrade_info'.format(self.node_ip_port.strip())
+        rsp = requests.get(url)
+        if rsp.status_code != 200:
+            raise Exception("get upgrade info error:{}".format(rsp.text))
+        tx = rsp.json()
+        return tx
+
     def __str__(self):
         pass
 

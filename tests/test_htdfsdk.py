@@ -1,5 +1,4 @@
 import pytest
-import time
 from pprint import pprint
 
 from htdfsdk import HtdfRPC, HtdfTxBuilder, htdf_to_satoshi, Address, HtdfPrivateKey
@@ -65,5 +64,13 @@ def test_htdf_normal_transfer():
 
     tx = htdfrpc.get_transaction(transaction_hash=tx_hash)
     pprint(tx)
+
+
+# @pytest.fixture(params=[])
+def test_get_upgrade_info():
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+    tx = htdfrpc.get_upgrade_info()
+    pprint(tx)
+
 
 

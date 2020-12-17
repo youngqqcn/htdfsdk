@@ -29,6 +29,8 @@ upload: dist
 test:
 	pytest tests
 
+test_func:
+	pytest tests/test_htdfsdk.py::$(func_name)
 
 bumpversion:
 # 	@echo "version is:" $(version)

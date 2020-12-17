@@ -11,3 +11,21 @@ eth_abi
 eth_typing
 eth_utils
 hexbytes
+eth_account
+
+
+
+
+
+eth-abi
+eth-account
+# eth-hash[pycryptodome]>=0.2.0,<1.0.0
+eth-typing
+eth-utils
+jsonschema
+lru-dict
+protobuf
+# pypiwin32>=223;platform_system=='Windows',
+# remove typing_extensions after python_requires>=3.8, see web3._utils.compat
+typing-extensions
+websockets

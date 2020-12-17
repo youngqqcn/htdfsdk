@@ -4,6 +4,7 @@ bech32
 func_timeout
 bumpversion
 pytest
+requests
 
 
 eth_abi

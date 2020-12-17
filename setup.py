@@ -6,12 +6,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='htdfsdk',
-    version='0.0.8',
+    version='0.0.11',
     description='htdf sdk',
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='htdf sdk',
-    packages=setuptools.find_packages("htdfsdk"),
+    packages=setuptools.find_packages(exclude=["tests"]),
     author='youngqqcn',
     author_email='youngqqcn@163.com',
     url='https://github.com/youngqqcn/htdfsdk',
@@ -32,6 +32,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.8',
     ],
     python_requires='>=3.6',
-    install_requires=['ecdsa', 'coincurve', 'bech32', 'func_timeout', 'bumpversion', 'pytest'],
+    install_requires=['ecdsa', 'coincurve', 'bech32', "requests"],
 
 )

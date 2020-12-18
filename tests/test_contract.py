@@ -234,13 +234,6 @@ def test_contract_htdf_faucet_setOnceAmount():
     pass
 
 
-
-
-
-
-
-
-
 def main():
     # getOwner()
     test_htdf_contract()

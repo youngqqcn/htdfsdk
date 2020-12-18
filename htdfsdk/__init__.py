@@ -5,7 +5,7 @@ if sys.version_info < (3, 6):
         "Python 3.6 or above is required. ")
 
 
-# import web3
+import htdfsdk.web3 as web3
 
 from htdfsdk.htdfsdk import (
     HtdfTxBuilder,
@@ -32,7 +32,7 @@ __all__ = [
     "HtdfTxBuilder",
     "Address",
     "HtdfPrivateKey",
-    # "web3"
+    "web3",
     "HtdfContract",
     "to_checksum_address",
     "remove_0x_prefix",

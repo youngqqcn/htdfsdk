@@ -27,7 +27,7 @@ upload: dist
 	twine upload dist/*  --verbose
 
 test:
-	pytest tests
+	cd tests && pytest ./
 
 #test_func:
 	#pytest tests/test_htdfsdk.py::$(func)

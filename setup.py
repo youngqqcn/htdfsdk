@@ -11,6 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='htdf sdk',
+    py_modules=['web3', 'htdfsdk', 'ens'],
     packages=setuptools.find_packages(exclude=["tests"]),
     author='youngqqcn',
     author_email='youngqqcn@163.com',

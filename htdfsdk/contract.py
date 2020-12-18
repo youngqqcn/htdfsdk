@@ -10,13 +10,13 @@ from eth_abi.exceptions import DecodingError
 from eth_utils import to_checksum_address, remove_0x_prefix, decode_hex
 
 from htdfsdk import Address, HtdfRPC
-from web3 import Web3
-from web3._utils.abi import get_abi_output_types, map_abi_data
-from web3._utils.contracts import prepare_transaction, find_matching_fn_abi
-from web3._utils.normalizers import BASE_RETURN_NORMALIZERS
-from web3.contract import Contract, ContractFunction, ACCEPTABLE_EMPTY_STRINGS
-from web3.exceptions import BadFunctionCallOutput
-from web3.types import TxParams
+from htdfsdk.web3 import Web3
+from htdfsdk.web3._utils.abi import get_abi_output_types, map_abi_data
+from htdfsdk.web3._utils.contracts import prepare_transaction, find_matching_fn_abi
+from htdfsdk.web3._utils.normalizers import BASE_RETURN_NORMALIZERS
+from htdfsdk.web3.contract import Contract, ContractFunction, ACCEPTABLE_EMPTY_STRINGS
+from htdfsdk.web3.exceptions import BadFunctionCallOutput
+from htdfsdk.web3.types import TxParams
 
 
 class HtdfContract:

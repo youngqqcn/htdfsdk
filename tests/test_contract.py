@@ -10,8 +10,8 @@ from htdfsdk import to_checksum_address, remove_0x_prefix
 
 from htdfsdk import Address, HtdfRPC, HtdfPrivateKey, HtdfTxBuilder, htdf_to_satoshi
 from htdfsdk import HtdfContract
-from web3 import Web3, HTTPProvider
-from web3.auto import w3
+from htdfsdk.web3 import Web3, HTTPProvider
+from htdfsdk.web3.auto import w3
 
 
 myweb3 = Web3(provider=HTTPProvider(endpoint_uri=URI('https://rinkeby.infura.io/v3/314aa8d6c0f4433b8f5c43c3c7e5c1e4')))
@@ -243,9 +243,9 @@ def test_contract_htdf_faucet_setOnceAmount():
 
 def main():
     # getOwner()
-    # test_htdf_contract()
+    test_htdf_contract()
     # test_contract_htdf_faucet_deposit()
-    test_contract_htdf_faucet_getOneHtdf()
+    # test_contract_htdf_faucet_getOneHtdf()
     # test_contract_htdf_faucet_setOnceAmount()
 
     pass

@@ -6,6 +6,9 @@ import json
 
 from eth_typing import URI
 from eth_utils import to_checksum_address
+
+from htdfsdk import Address
+from htdfsdk.contract import HtdfContract
 from web3 import Web3, HTTPProvider
 from web3.auto import w3
 
@@ -24,8 +27,9 @@ def getOwner():
 
     # 获取ownerAddress
     contract = myweb3.eth.contract(address=address, abi=abi)
-    # owner = contract.functions.owner().call()
-    # print(owner)
+    owner = contract.functions.owner().call()
+    print(owner)
+
 
     transaction = contract.functions.owner().buildTransaction({
         # 'value': 0,
@@ -39,9 +43,26 @@ def getOwner():
 
 
 
+def test_htdf_contract():
+    # address = to_checksum_address("0x7174f4cE494f1577e4baeF5b22C7Bb23d1199845")
+
+    with open('./htdf_abi_faucet.json', 'r') as abifile:
+        # abi = abifile.readlines()
+        abijson = abifile.read()
+        # print(abijson)
+        abi = json.loads(abijson)
+
+    # 获取ownerAddress
+    # contract = myweb3.eth.contract(address=address, abi=abi)
+    # owner = contract.functions.owner().call()
+    address = Address("htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml")
+    htdfcontract = HtdfContract(address=address, abi=abi)
+    pass
+
 
 def main():
-    getOwner()
+    # getOwner()
+    test_htdf_contract()
 
     pass
 

@@ -13,13 +13,13 @@ from web3.contract import Contract
 
 
 class HtdfContract:
-
     def __init__(self, address: Address, **kwargs: Any):
         self.web3 = Web3()
         chksum_addr = to_checksum_address(value=address.hex_address)
         contract_factory = Contract.factory(web3=self.web3, **kwargs )
         # self.web3_contract = Contract(address=chksum_addr)
         self.contract = contract_factory(chksum_addr)
+        self.functions = self.contract.functions
         pass
 
 

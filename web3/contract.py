@@ -1083,6 +1083,45 @@ class ContractFunction:
             **self.kwargs
         )
 
+    def buildTransaction_htdf(self, transaction: Optional[TxParams] = None) -> TxParams:
+        """
+        Build the transaction dictionary without sending
+        """
+        if transaction is None:
+            built_transaction: TxParams = {}
+        else:
+            built_transaction = cast(TxParams, dict(**transaction))
+
+        if 'data' in built_transaction:
+            raise ValueError("Cannot set data in build transaction")
+
+        if not self.address and 'to' not in built_transaction:
+            raise ValueError(
+                "When using `ContractFunction.buildTransaction` from a contract factory "
+                "you must provide a `to` address with the transaction"
+            )
+        if self.address and 'to' in built_transaction:
+            raise ValueError("Cannot set to in contract call build transaction")
+
+        if self.address:
+            built_transaction.setdefault('to', self.address)
+
+        if 'to' not in built_transaction:
+            raise ValueError(
+                "Please ensure that this contract instance has an address."
+            )
+
+        return build_transaction_for_function_htdf(
+            self.address,
+            self.web3,
+            self.function_identifier,
+            built_transaction,
+            self.contract_abi,
+            self.abi,
+            *self.args,
+            **self.kwargs
+        )
+
     @combomethod
     def _encode_transaction_data(cls) -> HexStr:
         return add_0x_prefix(encode_abi(cls.web3, cls.abi, cls.arguments, cls.selector))
@@ -1646,6 +1685,39 @@ def build_transaction_for_function(
     prepared_transaction = fill_transaction_defaults(web3, prepared_transaction)
 
     return prepared_transaction
+
+
+
+def build_transaction_for_function_htdf(
+        address: ChecksumAddress,
+        web3: 'Web3',
+        function_name: Optional[FunctionIdentifier] = None,
+        transaction: Optional[TxParams] = None,
+        contract_abi: Optional[ABI] = None,
+        fn_abi: Optional[ABIFunction] = None,
+        *args: Any,
+        **kwargs: Any) -> TxParams:
+    """Builds a dictionary with the fields required to make the given transaction
+
+    Don't call this directly, instead use :meth:`Contract.buildTransaction`
+    on your contract instance.
+    """
+    prepared_transaction = prepare_transaction(
+        address,
+        web3,
+        fn_identifier=function_name,
+        contract_abi=contract_abi,
+        fn_abi=fn_abi,
+        transaction=transaction,
+        fn_args=args,
+        fn_kwargs=kwargs,
+    )
+
+    # prepared_transaction = fill_transaction_defaults(web3, prepared_transaction)
+
+    return prepared_transaction
+
+
 
 
 def find_functions_by_identifier(

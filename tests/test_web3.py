@@ -57,6 +57,9 @@ def test_htdf_contract():
     # owner = contract.functions.owner().call()
     address = Address("htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml")
     htdfcontract = HtdfContract(address=address, abi=abi)
+
+    tx = htdfcontract.functions.owner().buildTransaction_htdf()
+    print(tx)
     pass
 
 

@@ -32,6 +32,21 @@ setuptools.setup(
         'Programming Language :: Python :: 3.8',
     ],
     python_requires='>=3.6',
-    install_requires=['ecdsa', 'coincurve', 'bech32', "requests"],
+    install_requires=[
+        'ecdsa',
+        'coincurve',
+        'bech32',
+        'requests',
+        'eth-abi',
+        'eth-account',
+        'hexbytes'
+        'eth-typing',
+        'eth-utils',
+        'jsonschema',
+        'lru-dict',
+        'protobuf',
+        'typing-extensions',
+        'websockets'
+    ],
 
 )

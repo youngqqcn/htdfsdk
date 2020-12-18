@@ -20,39 +20,22 @@ from web3.types import TxParams
 
 
 class HtdfContract:
-    def __init__(self, rpc: HtdfRPC , address: Address, **kwargs: Any):
+    def __init__(self, rpc: HtdfRPC, address: Address, **kwargs: Any):
         self.rpc = rpc
         self.web3 = Web3()
         self.address = address
         self.chksum_addr = to_checksum_address(value=address.hex_address)
-        contract_factory = Contract.factory(web3=self.web3, **kwargs )
-        # self.web3_contract = Contract(address=chksum_addr)
+        contract_factory = Contract.factory(web3=self.web3, **kwargs)
         self.contract = contract_factory(self.chksum_addr)
         self.functions = self.contract.functions
         pass
 
-
     def call(self, cfn: ContractFunction, transaction: Optional[TxParams] = None,
-             *args: Any, **kwargs: Any ) -> Any:
+             *args: Any, **kwargs: Any) -> Any:
         """
         refactor ContractFunction.call() to this function
         :param cfn:
         :return:
-        """
-
-        """
-        return call_contract_function(
-            self.web3,
-            self.address,
-            self._return_data_normalizers,
-            self.function_identifier,
-            call_transaction,
-            block_id,
-            self.contract_abi,
-            self.abi,
-            *self.args,
-            **self.kwargs
-        )
         """
         call_transaction: TxParams = {}
         if 'data' in call_transaction:
@@ -61,9 +44,8 @@ class HtdfContract:
         if self.chksum_addr:
             call_transaction.setdefault('to', self.chksum_addr)
         # if self.web3.eth.defaultAccount is not empty:
-            # type ignored b/c check prevents an empty defaultAccount
-            # call_transaction.setdefault('from', self.web3.eth.defaultAccount)  # type: ignore
-
+        # type ignored b/c check prevents an empty defaultAccount
+        # call_transaction.setdefault('from', self.web3.eth.defaultAccount)  # type: ignore
 
         pre_tx = prepare_transaction(
             self.chksum_addr,
@@ -79,10 +61,9 @@ class HtdfContract:
         data = remove_0x_prefix(pre_tx['data'])
 
         ret_data = self.rpc.contract_call(contract_address=self.address.bech32_address(), hex_data=data)
-        print('ret_data is {}'.format( ret_data))
+        print('ret_data is {}'.format(ret_data))
 
         ret_data_bytes = decode_hex(ret_data)
-
 
         if cfn.abi is None:
             fn_abi = find_matching_fn_abi(cfn.contract_abi, self.web3.codec, cfn.function_identifier, args, kwargs)
@@ -90,13 +71,13 @@ class HtdfContract:
         output_types = get_abi_output_types(cfn.abi)
 
         try:
-            output_data = self.web3.codec.decode_abi(output_types, ret_data_bytes )
+            output_data = self.web3.codec.decode_abi(output_types, ret_data_bytes)
         except DecodingError as e:
             # Provide a more helpful error message than the one provided by
             # eth-abi-utils
             is_missing_code_error = (
                     ret_data_bytes in ACCEPTABLE_EMPTY_STRINGS)
-                    #and self.web3.eth.getCode(address) in ACCEPTABLE_EMPTY_STRINGS)
+            # and self.web3.eth.getCode(address) in ACCEPTABLE_EMPTY_STRINGS)
             if is_missing_code_error:
                 msg = (
                     "Could not transact with/call contract function, is contract "
@@ -125,17 +106,7 @@ class HtdfContract:
         else:
             return normalized_data
 
-
-
         # return call_transaction
-
-
-
-
-
-
 
     def __str__(self):
         pass
-
-

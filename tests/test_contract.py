@@ -6,10 +6,10 @@ import json
 from pprint import pprint
 
 from eth_typing import URI
-from eth_utils import to_checksum_address, remove_0x_prefix
+from htdfsdk import to_checksum_address, remove_0x_prefix
 
 from htdfsdk import Address, HtdfRPC, HtdfPrivateKey, HtdfTxBuilder, htdf_to_satoshi
-from htdfsdk.contract import HtdfContract
+from htdfsdk import HtdfContract
 from web3 import Web3, HTTPProvider
 from web3.auto import w3
 

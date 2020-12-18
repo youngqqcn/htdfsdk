@@ -73,4 +73,25 @@ def test_get_upgrade_info():
     pprint(tx)
 
 
+def test_contract_call():
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+    data = '8da5cb5b'
+    contract_address = 'htdf1qnvztdxxr0l70sqqa33zah4e4sq4wk4nhwalsz'
+    rsp = htdfrpc.contract_call(contract_address=contract_address, hex_data=data)
+    print(rsp)
+
+    pass
+
+
+
+def main():
+    test_contract_call()
+
+    pass
+
+
+if __name__ == '__main__':
+    main()
+    pass
+
 

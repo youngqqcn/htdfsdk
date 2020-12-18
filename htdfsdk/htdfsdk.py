@@ -352,6 +352,17 @@ class HtdfRPC(object):
         tx = rsp.json()
         return tx
 
+
+    def contract_call(self, contract_address: str, hex_data: str) -> str:
+        url = 'http://{0}/hs/contract/{1}/{2}'.format(self.node_ip_port.strip(), contract_address, hex_data)
+        rsp = requests.get(url)
+        if rsp.status_code != 200:
+            raise Exception("contract_call:{}".format(rsp.text))
+        rsp = rsp.text
+        rsp = rsp.replace('"', '')
+        return rsp
+
+
     def __str__(self):
         pass
 

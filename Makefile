@@ -30,7 +30,7 @@ test:
 	pytest tests
 
 test_func:
-	pytest tests/test_htdfsdk.py::$(func_name)
+	pytest tests/test_htdfsdk.py::$(func)
 
 bumpversion:
 # 	@echo "version is:" $(version)

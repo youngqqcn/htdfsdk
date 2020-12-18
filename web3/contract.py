@@ -964,6 +964,7 @@ class ContractFunction:
             **self.kwargs
         )
 
+
     def transact(self, transaction: Optional[TxParams] = None) -> HexBytes:
         if transaction is None:
             transact_transaction: TxParams = {}

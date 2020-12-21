@@ -30,8 +30,7 @@ class HtdfContract:
         self.functions = self.contract.functions
         pass
 
-    def call(self, cfn: ContractFunction, transaction: Optional[TxParams] = None,
-             *args: Any, **kwargs: Any) -> Any:
+    def call(self, cfn: ContractFunction) -> Any:
         """
         refactor ContractFunction.call() to this function
         :param cfn:
@@ -54,8 +53,8 @@ class HtdfContract:
             contract_abi=cfn.contract_abi,
             fn_abi=cfn.abi,
             transaction=call_transaction,
-            fn_args=args,
-            fn_kwargs=kwargs,
+            fn_args=cfn.args,
+            fn_kwargs=cfn.kwargs,
         )
 
         data = remove_0x_prefix(pre_tx['data'])

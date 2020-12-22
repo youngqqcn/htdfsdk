@@ -51,7 +51,6 @@ def test_htdf_normal_transfer():
 
     tx_hash = htdfrpc.broadcast_tx(tx_hex=signed_tx)
     print('tx_hash: {}'.format(tx_hash))
-    # self.assertTrue( len(tx_hash) == 64)
 
     mempool =  htdfrpc.get_mempool_trasactions()
     pprint(mempool)

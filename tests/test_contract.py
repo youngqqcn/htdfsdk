@@ -27,7 +27,6 @@ def getOwner():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
     contract = myweb3.eth.contract(address=address, abi=abi)
     owner = contract.functions.owner().call()
     print(owner)
@@ -53,7 +52,6 @@ def test_htdf_contract():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
     address = Address("htdf1wc4489xl37za6k8kk8y2tsce8aftdycxxk0saa")
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
 
@@ -87,9 +85,6 @@ def test_contract_htdf_faucet_deposit():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
-    # contract = myweb3.eth.contract(address=address, abi=abi)
-    # owner = contract.functions.owner().call()
     contract_address = Address("htdf1wc4489xl37za6k8kk8y2tsce8aftdycxxk0saa")
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
 
@@ -138,9 +133,6 @@ def test_contract_htdf_faucet_getOneHtdf():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
-    # contract = myweb3.eth.contract(address=address, abi=abi)
-    # owner = contract.functions.owner().call()
     contract_address = Address("htdf1wc4489xl37za6k8kk8y2tsce8aftdycxxk0saa")
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
 
@@ -188,9 +180,6 @@ def test_contract_htdf_faucet_setOnceAmount():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
-    # contract = myweb3.eth.contract(address=address, abi=abi)
-    # owner = contract.functions.owner().call()
     contract_address = Address("htdf1wc4489xl37za6k8kk8y2tsce8aftdycxxk0saa")
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
 
@@ -238,28 +227,6 @@ def test_contract_htdf_faucet_setOnceAmount():
 hrc20_contract_address = ['htdf1k78exwfuta66m3sxgfjd6zuw8m7zykfmas0nrf']
 
 
-def test_hrc20_balanceOf():
-    with open('./AJC_sol_AJCToken.abi', 'r') as abifile:
-        # abi = abifile.readlines()
-        abijson = abifile.read()
-        # print(abijson)
-        abi = json.loads(abijson)
-
-        # ownerAddress
-    assert len(hrc20_contract_address) > 0
-    contract_address = Address(hrc20_contract_address[0])
-    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
-
-    hc = HtdfContract(rpc=htdfrpc, address=contract_address, abi=abi)
-
-    from_addr = Address('htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml')
-    cfnBalanceOf = hc.functions.balanceOf(_owner= to_checksum_address( from_addr.hex_address))
-    balance = hc.call(cfn=cfnBalanceOf )
-    print(type(balance))
-    print(balance)
-    assert balance == int(199000000 * 10**18)
-    pass
-
 
 
 def test_hrc20_name():
@@ -270,7 +237,6 @@ def test_hrc20_name():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
     assert len(hrc20_contract_address) > 0
     contract_address = Address(hrc20_contract_address[0])
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
@@ -289,7 +255,6 @@ def test_hrc20_symbol():
         # print(abijson)
         abi = json.loads(abijson)
 
-        # ownerAddress
     assert len(hrc20_contract_address) > 0
     contract_address = Address(hrc20_contract_address[0])
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
@@ -309,7 +274,6 @@ def test_hrc20_totalSupply():
         # print(abijson)
         abi = json.loads(abijson)
 
-        # ownerAddress
     assert len(hrc20_contract_address) > 0
     contract_address = Address(hrc20_contract_address[0])
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
@@ -328,7 +292,6 @@ def test_hrc20_decimals():
         # print(abijson)
         abi = json.loads(abijson)
 
-        # 获取ownerAddress
     assert len(hrc20_contract_address) > 0
     contract_address = Address(hrc20_contract_address[0])
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
@@ -343,6 +306,27 @@ def test_hrc20_decimals():
 
 
 
+def test_hrc20_balanceOf():
+    with open('./AJC_sol_AJCToken.abi', 'r') as abifile:
+        # abi = abifile.readlines()
+        abijson = abifile.read()
+        # print(abijson)
+        abi = json.loads(abijson)
+
+    assert len(hrc20_contract_address) > 0
+    contract_address = Address(hrc20_contract_address[0])
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+
+    hc = HtdfContract(rpc=htdfrpc, address=contract_address, abi=abi)
+
+    from_addr = Address('htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml')
+    cfnBalanceOf = hc.functions.balanceOf(_owner= to_checksum_address( from_addr.hex_address))
+    balance = hc.call(cfn=cfnBalanceOf )
+    print(type(balance))
+    print(balance)
+    assert balance == int(199000000 * 10**18)
+    pass
+
 def test_hrc20_transfer():
     with open('./AJC_sol_AJCToken.abi', 'r') as abifile:
         # abi = abifile.readlines()
@@ -350,7 +334,6 @@ def test_hrc20_transfer():
         # print(abijson)
         abi = json.loads(abijson)
 
-    # ownerAddress
     assert len(hrc20_contract_address) > 0
     contract_address = Address(hrc20_contract_address[0])
     htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
@@ -358,9 +341,7 @@ def test_hrc20_transfer():
     hc = HtdfContract(rpc=htdfrpc, address=contract_address, abi=abi)
 
 
-    #
     new_to_addr = HtdfPrivateKey('').address
-
 
     transfer_tx = hc.functions.transfer(
         _to=to_checksum_address(new_to_addr.hex_address),

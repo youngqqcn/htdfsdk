@@ -60,7 +60,7 @@ class HtdfContract:
         data = remove_0x_prefix(pre_tx['data'])
 
         ret_data = self.rpc.contract_call(contract_address=self.address.bech32_address(), hex_data=data)
-        print('ret_data is {}'.format(ret_data))
+        # print('ret_data is {}'.format(ret_data))
 
         ret_data_bytes = decode_hex(ret_data)
 

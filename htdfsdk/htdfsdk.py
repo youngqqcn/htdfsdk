@@ -10,7 +10,7 @@ import json
 import hashlib
 import time
 import ecdsa
-import traceback
+# import traceback
 import coincurve
 import base64
 import requests
@@ -18,7 +18,7 @@ import logging
 from typing import Tuple, Dict
 from binascii import hexlify, unhexlify
 from bech32 import bech32_decode, convertbits, bech32_encode
-from func_timeout import func_set_timeout
+# from func_timeout import func_set_timeout
 import os
 
 from .utils import htdf_to_satoshi

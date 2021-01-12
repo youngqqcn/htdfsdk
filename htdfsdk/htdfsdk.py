@@ -10,7 +10,7 @@ import json
 import hashlib
 import time
 import ecdsa
-import traceback
+# import traceback
 import coincurve
 import base64
 import requests
@@ -18,7 +18,7 @@ import logging
 from typing import Tuple, Dict
 from binascii import hexlify, unhexlify
 from bech32 import bech32_decode, convertbits, bech32_encode
-from func_timeout import func_set_timeout
+# from func_timeout import func_set_timeout
 import os
 
 from .utils import htdf_to_satoshi
@@ -351,6 +351,15 @@ class HtdfRPC(object):
             raise Exception("get upgrade info error:{}".format(rsp.text))
         tx = rsp.json()
         return tx
+
+    def contract_call(self, contract_address: str, hex_data: str) -> str:
+        url = 'http://{0}/hs/contract/{1}/{2}'.format(self.node_ip_port.strip(), contract_address, hex_data)
+        rsp = requests.get(url)
+        if rsp.status_code != 200:
+            raise Exception("contract_call:{}".format(rsp.text))
+        rsp = rsp.text
+        rsp = rsp.replace('"', '')
+        return rsp
 
     def __str__(self):
         pass

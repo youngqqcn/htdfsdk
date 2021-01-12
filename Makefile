@@ -27,10 +27,10 @@ upload: dist
 	twine upload dist/*  --verbose
 
 test:
-	pytest tests
+	cd tests && pytest ./
 
-test_func:
-	pytest tests/test_htdfsdk.py::$(func_name)
+#test_func:
+	#pytest tests/test_htdfsdk.py::$(func)
 
 bumpversion:
 # 	@echo "version is:" $(version)

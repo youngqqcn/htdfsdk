@@ -7,6 +7,7 @@ import json
 from typing import Optional, Any
 
 from eth_abi.exceptions import DecodingError
+from eth_typing import HexStr
 from eth_utils import to_checksum_address, remove_0x_prefix, decode_hex
 
 from htdfsdk import Address, HtdfRPC
@@ -20,15 +21,23 @@ from htdfsdk.web3.types import TxParams
 
 
 class HtdfContract:
-    def __init__(self, rpc: HtdfRPC, address: Address, **kwargs: Any):
+
+    def __init__(self, rpc: HtdfRPC, address: [Address, None], **kwargs: Any):
+        assert address is None or isinstance(address, Address)
         self.rpc = rpc
         self.web3 = Web3()
-        self.address = address
-        self.chksum_addr = to_checksum_address(value=address.hex_address)
-        contract_factory = Contract.factory(web3=self.web3, **kwargs)
-        self.contract = contract_factory(self.chksum_addr)
-        self.functions = self.contract.functions
+        self.contract_factory = Contract.factory(web3=self.web3, **kwargs)
+        if address is not None :
+            self.address = address
+            self.chksum_addr = to_checksum_address(value=address.hex_address)
+            self.contract = self.contract_factory(self.chksum_addr)
+            self.functions = self.contract.functions
         pass
+
+    def constructor_data(self, *args: Any, **kwargs: Any) -> HexStr:
+        data = self.contract_factory.constructor(*args, **kwargs).data_in_transaction
+        return remove_0x_prefix( data )
+
 
     def call(self, cfn: ContractFunction) -> Any:
         """

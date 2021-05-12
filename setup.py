@@ -6,21 +6,21 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='htdfsdk',
-    version='0.0.20',
-    description='htdf sdk',
+    version='1.0.0',
+    description='htdf python sdk',
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords='htdf sdk',
     py_modules=['htdfsdk'],
     packages=setuptools.find_packages(exclude=["tests"]),
     author='youngqqcn',
-    author_email='youngqqcn@163.com',
+    author_email='youngqqcn@gmail.com',
     url='https://github.com/youngqqcn/htdfsdk',
     classifiers=[
-        'Development Status :: 1 - Planning',
+        # 'Development Status :: 1 - Planning',
         # 'Development Status :: 2 - Pre-Alpha',
         # 'Development Status :: 3 - Alpha',
-        # 'Development Status :: 4 - Beta',
+        'Development Status :: 4 - Beta',
         # 'Development Status :: 5 - Production/Stable'
         # 'Development Status :: 5 - Production/Stable',  # 当前开发进度等级（测试版，正式版等）
         'Intended Audience :: Developers',  # 模块适用人群

@@ -32,7 +32,7 @@ def test_Address():
 
 def test_htdf_normal_transfer():
 
-    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='127.0.0.1', rpc_port=1317)
 
     from_addr = Address('htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml')
     to_addr = Address('htdf1jrh6kxrcr0fd8gfgdwna8yyr9tkt99ggmz9ja2')
@@ -69,13 +69,13 @@ def test_htdf_normal_transfer():
 
 # @pytest.fixture(params=[])
 def test_get_upgrade_info():
-    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='127.0.0.1', rpc_port=1317)
     tx = htdfrpc.get_upgrade_info()
     pprint(tx)
 
 
 def test_contract_call():
-    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='127.0.0.1', rpc_port=1317)
     data = '8da5cb5b'
     contract_address = 'htdf1qnvztdxxr0l70sqqa33zah4e4sq4wk4nhwalsz'
     rsp = htdfrpc.contract_call(contract_address=contract_address, hex_data=data)

@@ -2,7 +2,7 @@ import pytest
 from pprint import pprint
 
 from htdfsdk import HtdfRPC, HtdfTxBuilder, htdf_to_satoshi, Address, HtdfPrivateKey
-from htdfsdk.htdfsdk import ValidatorAddress, HtdfDelegateTxBuilder, HtdfWithdrawDelegateRewardsTxBuilder, \
+from htdfsdk import ValidatorAddress, HtdfDelegateTxBuilder, HtdfWithdrawDelegateRewardsTxBuilder, \
     HtdfSetUndelegateStatusTxBuilder, HtdfUndelegateTxBuilder, HtdfEditValidatorInfoTxBuilder
 
 

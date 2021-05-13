@@ -12,6 +12,12 @@ from htdfsdk.htdfsdk import (
     HtdfRPC,
     Address,
     HtdfPrivateKey,
+    ValidatorAddress,
+    HtdfDelegateTxBuilder,
+    HtdfWithdrawDelegateRewardsTxBuilder,
+    HtdfSetUndelegateStatusTxBuilder,
+    HtdfUndelegateTxBuilder,
+    HtdfEditValidatorInfoTxBuilder
 )
 
 from htdfsdk.contract import (
@@ -36,4 +42,10 @@ __all__ = [
     "HtdfContract",
     "to_checksum_address",
     "remove_0x_prefix",
+    "ValidatorAddress",
+    "HtdfDelegateTxBuilder",
+    "HtdfWithdrawDelegateRewardsTxBuilder",
+    "HtdfSetUndelegateStatusTxBuilder",
+    "HtdfUndelegateTxBuilder",
+    "HtdfEditValidatorInfoTxBuilder",
 ]

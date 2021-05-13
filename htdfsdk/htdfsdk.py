@@ -471,6 +471,151 @@ class HtdfRPC(object):
         rsp = rsp.replace('"', '')
         return rsp
 
+
+
+    def get_delegator_total_rewards(self, delegator_address: str) -> [Dict, None]:
+        """
+        "/distribution/delegators/{delegatorAddr}/rewards",
+        """
+
+        url = 'http://{0}/distribution/delegators/{1}/rewards'.format(self.node_ip_port.strip(), delegator_address.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_delegator_rewards_at_validator(self, delegator_address: str, validator_address: str) -> [Dict, None]:
+        """
+        "/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}",
+        """
+
+        url = 'http://{}/distribution/delegators/{}/rewards/{}'.format(self.node_ip_port.strip(),
+                                                                       delegator_address.strip(), validator_address.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+
+    def get_delegator_delegations(self, delegator_address: str):
+        """
+        "/staking/delegators/{delegatorAddr}/delegations",
+        :return:
+        """
+        url = 'http://{0}/staking/delegators/{1}/delegations'.format(self.node_ip_port.strip(),
+                                                                       delegator_address.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_delegator_unbonding_delegations(self, delegator_address: str ):
+        """
+        "/staking/delegators/{delegatorAddr}/unbonding_delegations"
+        :return:
+        """
+        url = 'http://{0}/staking/delegators/{1}/unbonding_delegations'.format(self.node_ip_port.strip(),
+                                                                     delegator_address.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_staking_pool(self):
+        """
+        "/staking/pool"
+        :return:
+        """
+        url = 'http://{0}/staking/pool'.format(self.node_ip_port.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_staking_parameters(self):
+        """
+        "/staking/parameters"
+        :return:
+        """
+        url = 'http://{0}/staking/parameters'.format(self.node_ip_port.strip())
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+
+    def get_validator_details(self, validator_address: str):
+        """
+        "/staking/validators/{validatorAddr}"
+        :return:
+        """
+        url = 'http://{0}/staking/validators/{1}'.format(self.node_ip_port.strip(), validator_address)
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_all_validators(self ):
+        """
+        "/staking/validators"
+        :return:
+        """
+        url = 'http://{0}/staking/validators'.format(self.node_ip_port.strip() )
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_all_delegations_at_validator(self, validator_address: str ):
+        """
+        "/staking/validators/{validatorAddr}/delegations",
+        :return:
+        """
+        url = 'http://{0}/staking/validators/{1}/delegations'.format(self.node_ip_port.strip(), validator_address)
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_all_unbonding_delegations_at_validator(self, validator_address: str) :
+        """
+        "/staking/validators/{validatorAddr}/unbonding_delegations",
+        :return:
+        """
+        url = 'http://{0}/staking/validators/{1}/unbonding_delegations'.format(self.node_ip_port.strip(), validator_address)
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+    def get_delegator_all_unbonding_delegations_at_validator(self,  delegator_address: str, validator_address: str):
+        """
+        "/staking/delegators/{delegatorAddr}/unbonding_delegations/{validatorAddr}",
+        :return:
+        """
+
+        url = 'http://{0}/staking/delegators/{1}/unbonding_delegations/{2}'.format(self.node_ip_port.strip(),
+                                                                               delegator_address, validator_address)
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+
+
+
+
     def __str__(self):
         pass
 

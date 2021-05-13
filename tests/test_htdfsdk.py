@@ -289,6 +289,58 @@ def test_edit_validator_info_tx():
 
 
 
+def test_query():
+
+
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='127.0.0.1', rpc_port=1317)
+
+    delegate_addr = Address('htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml')
+    val_addr = ValidatorAddress('htdfvaloper1gu23408yyv6lk6vqjkykecmulnj0xsmhqr47hs')
+    rsp =  htdfrpc.get_delegator_total_rewards(delegator_address=delegate_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_delegator_rewards_at_validator(delegator_address=delegate_addr.address, validator_address=val_addr.address)
+    pprint(rsp)
+    print('======')
+
+
+    rsp = htdfrpc.get_staking_parameters()
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_staking_pool()
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_delegator_unbonding_delegations(delegator_address=delegate_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_delegator_delegations(delegator_address=delegate_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_validator_details(validator_address=val_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_all_validators()
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_all_delegations_at_validator(validator_address=val_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_all_unbonding_delegations_at_validator(validator_address=val_addr.address)
+    pprint(rsp)
+    print('======')
+
+    rsp = htdfrpc.get_delegator_all_unbonding_delegations_at_validator(validator_address=val_addr.address, delegator_address=delegate_addr.address)
+    pprint(rsp)
+    print('======')
+
 def main():
     # test_contract_call()
     # test_delegate_tx()
@@ -296,7 +348,9 @@ def main():
     # test_set_undelegate_status_tx()
     # test_undelegate_tx()
 
-    test_edit_validator_info_tx()
+    # test_edit_validator_info_tx()
+
+    test_query()
 
     pass
 

@@ -512,6 +512,23 @@ class HtdfRPC(object):
         rsp = rsp.json()
         return rsp
 
+    def get_delegator_delegations_at_validator(self, delegator_address: str, validator_address: str):
+        """
+        // Query a delegation between a delegator and a validator
+		"/staking/delegators/{delegatorAddr}/delegations/{validatorAddr}",
+        :return:
+        """
+        url = 'http://{0}/staking/delegators/{1}/delegations/{2}'.format(self.node_ip_port.strip(),
+                                                                     delegator_address.strip(), validator_address)
+        rsp = requests.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
+
+
+
     def get_delegator_unbonding_delegations(self, delegator_address: str ):
         """
         "/staking/delegators/{delegatorAddr}/unbonding_delegations"

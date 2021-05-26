@@ -32,7 +32,7 @@ def test_Address():
 
 def test_htdf_normal_transfer():
 
-    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='127.0.0.1', rpc_port=1317)
+    htdfrpc = HtdfRPC(chaid_id='testchain', rpc_host='192.168.0.171', rpc_port=1317)
 
     from_addr = Address('htdf1xwpsq6yqx0zy6grygy7s395e2646wggufqndml')
     to_addr = Address('htdf1jrh6kxrcr0fd8gfgdwna8yyr9tkt99ggmz9ja2')
@@ -348,6 +348,7 @@ def test_query():
 
 
 def main():
+    test_htdf_normal_transfer()
     # test_contract_call()
     # test_delegate_tx()
     # test_withdraw_delegate_rewards_tx()
@@ -356,7 +357,7 @@ def main():
 
     # test_edit_validator_info_tx()
 
-    test_query()
+    # test_query()
 
     pass
 

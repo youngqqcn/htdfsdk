@@ -269,6 +269,10 @@ class HtdfRPC(object):
         self.node_ip_port = '{}:{}'.format(self.rpc_host, self.rpc_port)
         pass
 
+    def get(self, url: str , timeout_secs : float = 10.0):
+        return requests.get(url, timeout=timeout_secs)
+
+
     def get_account_info(self, address: str) -> [Account, None]:
         """
         get account info
@@ -277,7 +281,7 @@ class HtdfRPC(object):
         """
 
         url = 'http://{0}/auth/accounts/{1}'.format(self.node_ip_port.strip(), address.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url) #requests.get(url)
 
         if rsp.status_code != 200:
             if rsp.status_code == 204:
@@ -307,7 +311,7 @@ class HtdfRPC(object):
         """ get block details by block number"""
 
         url = 'http://{0}/block_detail/{1}'.format(self.node_ip_port.strip(), block_number)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code != 200:
             return None
         tx = rsp.json()
@@ -317,7 +321,7 @@ class HtdfRPC(object):
         """ get latest block details """
 
         url = 'http://{0}/blocks/latest'.format(self.node_ip_port.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code != 200:
             return None
         tx = rsp.json()
@@ -329,7 +333,7 @@ class HtdfRPC(object):
         NOTE: a confirmed(successed or failed) transaction couldn't be found in mempool
         """
         req_url = 'http://{0}/mempool/txs/{1}'.format(self.node_ip_port.strip(), transaction_hash.strip())
-        rsp = requests.get(url=req_url)
+        rsp = self.get(url=req_url)
         if rsp.status_code == 400:
             return None
         tx = rsp.json()
@@ -339,7 +343,7 @@ class HtdfRPC(object):
         """ get the frontly 101 transactions """
         # raise NotImplementedError
         req_url = 'http://{0}/mempool/txs'.format(self.node_ip_port.strip())
-        rsp = requests.get(url=req_url)
+        rsp = self.get(url=req_url)
         if rsp.status_code != 200:
             return None
         tx = rsp.json()
@@ -349,7 +353,7 @@ class HtdfRPC(object):
         """ get mempool transaction count """
         # raise NotImplementedError
         req_url = 'http://{0}/mempool/txscount'.format(self.node_ip_port.strip())
-        rsp = requests.get(url=req_url)
+        rsp = self.get(url=req_url)
         if rsp.status_code != 200:
             return None
         tx = rsp.json()
@@ -362,18 +366,25 @@ class HtdfRPC(object):
         start_time = time.time()
         while True:
             url = 'http://{0}/txs/{1}'.format(self.node_ip_port, transaction_hash.strip())
-            rsp = requests.get(url)
-            if rsp.status_code == 404:
+            try:
+                rsp = self.get(url)
+                if rsp.status_code == 404:
+                    cur_time = time.time()
+                    if cur_time - start_time >= timeout_secs:
+                        return None
+                    if timeout_secs - (cur_time - start_time) >= interval_secs:
+                        time.sleep(interval_secs)
+                    else:
+                        time.sleep(timeout_secs - (cur_time - start_time))
+                    continue
+                tx = rsp.json()
+                return tx
+            except requests.exceptions.ConnectTimeout as e:
                 cur_time = time.time()
                 if cur_time - start_time >= timeout_secs:
                     return None
-                if timeout_secs - (cur_time - start_time) >= interval_secs:
-                    time.sleep(interval_secs)
-                else:
-                    time.sleep(timeout_secs - (cur_time - start_time))
-                continue
-            tx = rsp.json()
-            return tx
+                pass
+
         pass
 
     def get_transaction_receipt_until_timeout(self, transaction_hash: str, timeout_secs: float = 15,
@@ -382,18 +393,24 @@ class HtdfRPC(object):
         start_time = time.time()
         while True:
             url = 'http://{0}/v2/tx-receipt/{1}'.format(self.node_ip_port, transaction_hash.strip())
-            rsp = requests.get(url)
-            if rsp.status_code == 404:
+            try:
+                rsp = self.get(url)
+                if rsp.status_code == 404:
+                    cur_time = time.time()
+                    if cur_time - start_time >= timeout_secs:
+                        return None
+                    if timeout_secs - (cur_time - start_time) >= interval_secs:
+                        time.sleep(interval_secs)
+                    else:
+                        time.sleep(timeout_secs - (cur_time - start_time))
+                    continue
+                tx = rsp.json()
+                return tx
+            except requests.exceptions.ConnectTimeout as e:
                 cur_time = time.time()
                 if cur_time - start_time >= timeout_secs:
                     return None
-                if timeout_secs - (cur_time - start_time) >= interval_secs:
-                    time.sleep(interval_secs)
-                else:
-                    time.sleep(timeout_secs - (cur_time - start_time))
-                continue
-            tx = rsp.json()
-            return tx
+                pass
         pass
 
     def get_transaction_receipt(self, transaction_hash: str) -> [Dict, None]:
@@ -404,7 +421,7 @@ class HtdfRPC(object):
         """
 
         url = 'http://{0}/v2/tx-receipt/{1}'.format(self.node_ip_port.strip(), transaction_hash.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         tx = rsp.json()
@@ -418,7 +435,7 @@ class HtdfRPC(object):
         """
 
         url = 'http://{0}/txs/{1}'.format(self.node_ip_port.strip(), transaction_hash.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         tx = rsp.json()
@@ -456,7 +473,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/upgrade_info'.format(self.node_ip_port.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code != 200:
             raise Exception("get upgrade info error:{}".format(rsp.text))
         tx = rsp.json()
@@ -464,7 +481,7 @@ class HtdfRPC(object):
 
     def contract_call(self, contract_address: str, hex_data: str) -> str:
         url = 'http://{0}/hs/contract/{1}/{2}'.format(self.node_ip_port.strip(), contract_address, hex_data)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code != 200:
             raise Exception("contract_call:{}".format(rsp.text))
         rsp = rsp.text
@@ -479,7 +496,7 @@ class HtdfRPC(object):
         """
 
         url = 'http://{0}/distribution/delegators/{1}/rewards'.format(self.node_ip_port.strip(), delegator_address.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -492,7 +509,7 @@ class HtdfRPC(object):
 
         url = 'http://{}/distribution/delegators/{}/rewards/{}'.format(self.node_ip_port.strip(),
                                                                        delegator_address.strip(), validator_address.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -506,7 +523,7 @@ class HtdfRPC(object):
         """
         url = 'http://{0}/staking/delegators/{1}/delegations'.format(self.node_ip_port.strip(),
                                                                        delegator_address.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -520,7 +537,7 @@ class HtdfRPC(object):
         """
         url = 'http://{0}/staking/delegators/{1}/delegations/{2}'.format(self.node_ip_port.strip(),
                                                                      delegator_address.strip(), validator_address)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -536,7 +553,7 @@ class HtdfRPC(object):
         """
         url = 'http://{0}/staking/delegators/{1}/unbonding_delegations'.format(self.node_ip_port.strip(),
                                                                      delegator_address.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -548,7 +565,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/pool'.format(self.node_ip_port.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -560,7 +577,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/parameters'.format(self.node_ip_port.strip())
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -573,7 +590,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/validators/{1}'.format(self.node_ip_port.strip(), validator_address)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -585,7 +602,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/validators'.format(self.node_ip_port.strip() )
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -597,7 +614,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/validators/{1}/delegations'.format(self.node_ip_port.strip(), validator_address)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -609,7 +626,7 @@ class HtdfRPC(object):
         :return:
         """
         url = 'http://{0}/staking/validators/{1}/unbonding_delegations'.format(self.node_ip_port.strip(), validator_address)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()
@@ -623,7 +640,7 @@ class HtdfRPC(object):
 
         url = 'http://{0}/staking/delegators/{1}/unbonding_delegations/{2}'.format(self.node_ip_port.strip(),
                                                                                delegator_address, validator_address)
-        rsp = requests.get(url)
+        rsp = self.get(url)
         if rsp.status_code == 404:
             return None
         rsp = rsp.json()

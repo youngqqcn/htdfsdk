@@ -543,6 +543,20 @@ class HtdfRPC(object):
         rsp = rsp.json()
         return rsp
 
+    def get_delegator_delegations_extended(self, delegator_address: str):
+        """
+        // Query a delegation between a delegator and a validator
+        /staking/delegators/{delegatorAddr}/delegations/extended
+        :return:
+        """
+        url = 'http://{0}/staking/delegators/{1}/delegations/extended'.format(self.node_ip_port.strip(),
+                                                                         delegator_address.strip())
+        rsp = self.get(url)
+        if rsp.status_code == 404:
+            return None
+        rsp = rsp.json()
+        return rsp
+
 
 
 

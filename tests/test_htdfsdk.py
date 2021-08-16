@@ -320,6 +320,9 @@ def test_query():
 
     rsp = htdfrpc.get_delegator_delegations(delegator_address=delegate_addr.address)
     pprint(rsp)
+
+    rsp = htdfrpc.get_delegator_delegations_extended(delegator_address=delegate_addr.address)
+    pprint(rsp)
     print('===get_validator_details===')
 
     rsp = htdfrpc.get_validator_details(validator_address=val_addr.address)
